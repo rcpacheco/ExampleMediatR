@@ -1,5 +1,7 @@
 ﻿using FluentValidation;
+
 using MediatR;
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -23,7 +25,12 @@ namespace ExampleMediatR.PipelineBehaviors
                 .SelectMany(result => result.Errors)
                 .Where(f => f != null)
                 .ToList();
-            if (failures.Any()) throw new ValidationException(failures);
+
+            if (failures.Any())
+            {
+                throw new ValidationException(failures);
+            }
+
             return next();
         }
     }
