@@ -1,9 +1,11 @@
 using ExampleMediatR.Extensions;
+using ExampleMediatR.Filters;
 using ExampleMediatR.Mapping;
 using ExampleMediatR.PipelineBehaviors;
 using ExampleMediatR.Repositories;
 
 using FluentValidation;
+using FluentValidation.AspNetCore;
 
 using MediatR;
 
@@ -20,7 +22,15 @@ namespace ExampleMediatR
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services
+                .AddMvc(options =>
+                {
+                    options.Filters.Add<ValidationFilter>();
+                })
+                .AddFluentValidation(m => m.RegisterValidatorsFromAssemblyContaining<Startup>());
+
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            services.AddValidatorsFromAssembly(typeof(Startup).Assembly);
 
             services.AddSingleton<ICustomersRepository, CustomersRepository>();
             services.AddSingleton<IOrdersRepository, OrdersRepository>();
@@ -28,8 +38,6 @@ namespace ExampleMediatR
 
             services.AddMediatR(typeof(Startup));
 
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
-            services.AddValidatorsFromAssembly(typeof(Startup).Assembly);
             services.AddSwaggerGen();
         }
 

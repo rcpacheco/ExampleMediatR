@@ -29,6 +29,10 @@ namespace ExampleMediatR.Mapping
 
         public CustomerResponse MapCustomerDtoToCustomerResponse(CustomerDto customerDto)
         {
+            if (customerDto == null)
+            {
+                return new CustomerResponse();
+            }
             return new CustomerResponse() { Id = customerDto.Id, Name = customerDto.Name };
         }
 

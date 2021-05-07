@@ -1,14 +1,12 @@
-﻿
-
-using ExampleMediatR.Commands;
+﻿using ExampleMediatR.Requests;
 
 using FluentValidation;
 
 namespace ExampleMediatR.Validation
 {
-    public class CreateCustomerOrderCommandValidator : AbstractValidator<CreateCustomerOrderCommand>
+    public class CreateCustomerOrderRequestValidator : AbstractValidator<CreateCustomerOrderRequest>
     {
-        public CreateCustomerOrderCommandValidator()
+        public CreateCustomerOrderRequestValidator()
         {
             RuleFor(x => x.CustomerId).NotEmpty();
             RuleFor(x => x.ProductId).NotEmpty();
