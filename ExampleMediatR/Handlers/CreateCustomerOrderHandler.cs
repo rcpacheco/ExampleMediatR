@@ -2,11 +2,11 @@
 using ExampleMediatR.Mapping;
 using ExampleMediatR.Repositories;
 using ExampleMediatR.Responses;
+
 using MediatR;
+
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -27,7 +27,7 @@ namespace ExampleMediatR.Handlers
 
         public async Task<OrderResponse> Handle(CreateCustomerOrderCommand request, CancellationToken cancellationToken)
         {
-            var order = await _ordersRepository.CreateOrderAsync(request.CustomerId, request.ProductId);
+            var order = await _ordersRepository.CreateOrderAsync(request.CustomerId, request.ProductId).ConfigureAwait(false);
             _logger.LogInformation($"Created order for customer: {order.CustomerId} for product: {order.ProductId}");
             return _mapper.MapOrderDtoToOrderResponse(order);
         }

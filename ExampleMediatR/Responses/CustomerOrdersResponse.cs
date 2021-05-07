@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ExampleMediatR.Responses
 {
@@ -9,6 +7,6 @@ namespace ExampleMediatR.Responses
     {
         public Guid CustomerId { get; set; }
 
-        public List<OrderResponse> Orders { get; set; }
+        public IList<OrderResponse> Orders { get; set; }
     }
 }

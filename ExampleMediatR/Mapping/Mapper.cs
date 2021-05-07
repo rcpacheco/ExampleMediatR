@@ -1,10 +1,10 @@
 ﻿using ExampleMediatR.Dtos;
 using ExampleMediatR.Repositories;
 using ExampleMediatR.Responses;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ExampleMediatR.Mapping
 {
@@ -16,12 +16,12 @@ namespace ExampleMediatR.Mapping
         {
             _customersRepository = customersRepository;
         }
-        public List<CustomerResponse> MapCustomerDtosToCustomerResponses(List<CustomerDto> dtos)
+        public IList<CustomerResponse> MapCustomerDtosToCustomerResponses(IList<CustomerDto> dtos)
         {
             return dtos.Select(x => new CustomerResponse()
             {
                 Id = x.Id,
-                Name = x.Name
+                Name = x.Name,
             })?.ToList();
         }
 
@@ -30,7 +30,7 @@ namespace ExampleMediatR.Mapping
             return new CustomerResponse() { Id = customerDto.Id, Name = customerDto.Name };
         }
 
-        public List<OrderResponse> MapOrderDtosToOrderResponses(List<OrderDto> customerOrders)
+        public IList<OrderResponse> MapOrderDtosToOrderResponses(IList<OrderDto> customerOrders)
         {
             return customerOrders.Select(x => new OrderResponse()
             {
@@ -41,10 +41,10 @@ namespace ExampleMediatR.Mapping
                     Id = x.ProductId,
                     Name = "Amazing Product",
                     Price = 6.99m,
-                    ReleaseDate = DateTime.UtcNow
+                    ReleaseDate = DateTime.UtcNow,
                 },
                 Delivered = x.Delivered,
-                DeliveryDate = x.DeliveryDate
+                DeliveryDate = x.DeliveryDate,
             })?.ToList();
         }
 
@@ -59,10 +59,10 @@ namespace ExampleMediatR.Mapping
                     Id = order.ProductId,
                     Name = "Amazing Product",
                     Price = 6.99m,
-                    ReleaseDate = DateTime.UtcNow
+                    ReleaseDate = DateTime.UtcNow,
                 },
                 Delivered = order.Delivered,
-                DeliveryDate = order.DeliveryDate
+                DeliveryDate = order.DeliveryDate,
             };
         }
     }

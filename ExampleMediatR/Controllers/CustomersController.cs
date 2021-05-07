@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Threading.Tasks;
-using ExampleMediatR.Queries;
+﻿using ExampleMediatR.Queries;
 using ExampleMediatR.Responses;
+
 using MediatR;
-using Microsoft.AspNetCore.Http;
+
 using Microsoft.AspNetCore.Mvc;
+
+using System;
+using System.Threading.Tasks;
 
 namespace ExampleMediatR.Controllers
 {
@@ -25,7 +24,7 @@ namespace ExampleMediatR.Controllers
         [HttpGet("")]
         public async Task<IActionResult> GetCustomers()
         {
-            GetAllCustomersQuery query = new GetAllCustomersQuery();
+            GetAllCustomersQuery query = new();
             var result = await _mediator.Send(query);
             return Ok(result);
         }
@@ -33,15 +32,15 @@ namespace ExampleMediatR.Controllers
         [HttpGet("{customerId}")]
         public async Task<IActionResult> GetCustomer(Guid customerId)
         {
-            GetCustomerByIdQuery query = new GetCustomerByIdQuery(customerId);
+            GetCustomerByIdQuery query = new(customerId);
             CustomerResponse result = await _mediator.Send(query);
-            return result != null ? (IActionResult)Ok(result) : NotFound();
+            return result != null ? Ok(result) : NotFound();
         }
 
         [HttpGet("{customerId}/orders")]
         public async Task<IActionResult> GetCustomerOrders(Guid customerId)
         {
-            GetCustomerOrdersQuery query = new GetCustomerOrdersQuery(customerId);
+            GetCustomerOrdersQuery query = new(customerId);
             var result = await _mediator.Send(query);
             return Ok(result);
         }

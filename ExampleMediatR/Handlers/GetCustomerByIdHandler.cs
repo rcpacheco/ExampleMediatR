@@ -2,10 +2,9 @@
 using ExampleMediatR.Queries;
 using ExampleMediatR.Repositories;
 using ExampleMediatR.Responses;
+
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -25,7 +24,7 @@ namespace ExampleMediatR.Handlers
 
         public async Task<CustomerResponse> Handle(GetCustomerByIdQuery request, CancellationToken cancellationToken)
         {
-            var customerDto = await _customersRepository.GetCustomerAsync(request.CustomerId);
+            var customerDto = await _customersRepository.GetCustomerAsync(request.CustomerId).ConfigureAwait(false);
             return customerDto == null ? null : _mapper.MapCustomerDtoToCustomerResponse(customerDto);
         }
     }

@@ -2,9 +2,9 @@
 using ExampleMediatR.Queries;
 using ExampleMediatR.Repositories;
 using ExampleMediatR.Responses;
+
 using MediatR;
-using System;
-using System.Collections.Generic;
+
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -25,12 +25,12 @@ namespace ExampleMediatR.Handlers
 
         public async Task<CustomerOrdersResponse> Handle(GetCustomerOrdersQuery request, CancellationToken cancellationToken)
         {
-            var orders = await _ordersRepository.GetOrdersAsync();
+            var orders = await _ordersRepository.GetOrdersAsync().ConfigureAwait(false);
             var customerOrders = orders.Where(o => o.CustomerId == request.CustomerId)?.ToList();
             var customerOrdersResponse = new CustomerOrdersResponse
             {
                 CustomerId = request.CustomerId,
-                Orders = _mapper.MapOrderDtosToOrderResponses(customerOrders)
+                Orders = _mapper.MapOrderDtosToOrderResponses(customerOrders),
             };
             return customerOrdersResponse;
         }
