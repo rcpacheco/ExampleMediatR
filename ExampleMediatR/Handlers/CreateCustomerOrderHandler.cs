@@ -25,9 +25,9 @@ namespace ExampleMediatR.Handlers
             _mapper = mapper;
         }
 
-        public async Task<OrderResponse> Handle(CreateCustomerOrderCommand request, CancellationToken cancellationToken)
+        public async Task<OrderResponse> Handle(CreateCustomerOrderCommand command, CancellationToken cancellationToken)
         {
-            var order = await _ordersRepository.CreateOrderAsync(request.CustomerId, request.ProductId).ConfigureAwait(false);
+            var order = await _ordersRepository.CreateOrderAsync(command.CustomerId, command.ProductId).ConfigureAwait(false);
             _logger.LogInformation($"Created order for customer: {order.CustomerId} for product: {order.ProductId}");
             return _mapper.MapOrderDtoToOrderResponse(order);
         }

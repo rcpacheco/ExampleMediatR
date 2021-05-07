@@ -21,7 +21,7 @@ namespace ExampleMediatR.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet("")]
+        [HttpGet]
         public async Task<IActionResult> GetCustomers()
         {
             GetAllCustomersQuery query = new();

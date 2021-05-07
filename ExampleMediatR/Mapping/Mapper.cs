@@ -1,5 +1,7 @@
-﻿using ExampleMediatR.Dtos;
+﻿using ExampleMediatR.Commands;
+using ExampleMediatR.Dtos;
 using ExampleMediatR.Repositories;
+using ExampleMediatR.Requests;
 using ExampleMediatR.Responses;
 
 using System;
@@ -28,6 +30,11 @@ namespace ExampleMediatR.Mapping
         public CustomerResponse MapCustomerDtoToCustomerResponse(CustomerDto customerDto)
         {
             return new CustomerResponse() { Id = customerDto.Id, Name = customerDto.Name };
+        }
+
+        public CreateCustomerOrderCommand MapCreateCustomerOrderRequestToCreateCustomerOrderCommand(CreateCustomerOrderRequest request)
+        {
+            return new CreateCustomerOrderCommand() { CustomerId = request.CustomerId, ProductId = request.ProductId };
         }
 
         public IList<OrderResponse> MapOrderDtosToOrderResponses(IList<OrderDto> customerOrders)

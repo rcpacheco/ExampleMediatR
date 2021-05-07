@@ -4,9 +4,9 @@ using MediatR;
 
 using System;
 
-namespace ExampleMediatR.Commands
+namespace ExampleMediatR.Requests
 {
-    public class CreateCustomerOrderCommand : IRequest<OrderResponse>
+    public class CreateCustomerOrderRequest : IRequest<OrderResponse>
     {
         public Guid CustomerId { get; set; }
 
