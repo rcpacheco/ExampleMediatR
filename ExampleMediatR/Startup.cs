@@ -1,3 +1,4 @@
+using ExampleMediatR.Extensions;
 using ExampleMediatR.Mapping;
 using ExampleMediatR.PipelineBehaviors;
 using ExampleMediatR.Repositories;
@@ -51,6 +52,8 @@ namespace ExampleMediatR
             });
 
             app.UseRouting();
+
+            app.UseFluentValidationExceptionHandler();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
